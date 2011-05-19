@@ -11,7 +11,9 @@ Contents
 A wrapper around `search` that scopes results that restricts results to only
 nodes that are also in the same chef environment as the executing node. This
 should be used for all searches as it maximizes the isolation of each
-environment from each other.
+environment from each other. Example:
+
+    environment_search(:node, 'role:dev') == search(:node, "chef_environment:#{node.chef_environment} AND (role:dev)")
 
 Requires chef > 0.10.0.
 
@@ -27,6 +29,8 @@ The easiest way to install this is to use [knife-github-cookbooks](https://githu
 
     gem install knife-github-cookbooks
     knife github cookbook install websterclay/chef-helpers
+
+Then, put `recipe[helpers]` in your runlist, preferably in your base role.
 
 Author
 ------
